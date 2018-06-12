@@ -5,7 +5,35 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <!-- <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p> -->
+    <h1>First Class Postage</h1>
+    <h2>Calculator</h2>
+    <form method='get' action='/postage'>
+      <fieldset>
+        <legend>Type</legend>
+        <div>
+          <input type='radio' name='type' value='stamped' id='stamped' checked>
+          <label for='stamped'>Letters (Stamped)</label>
+        </div>
+        <div>
+          <input type='radio' name='type' value='metered' id='metered'>
+          <label for='metered'>Letters (Metered)</label>
+        </div>
+        <div>
+          <input type='radio' name='type' value='flats' id='flats'>
+          <label for='flats'>Large Envelopes (Flats)</label>
+        </div>
+        <div>
+          <input type='radio' name='type' value='package' id='package'>
+          <label for='package'>First-Class Package Service-Retail</label>
+        </div>
+      </fieldset>
+      <fieldset>
+          <legend>Weight in oz.</legend>
+          <input type='number' name='weight' min='.1' max='12.9' step='.1' value='1' id='weight' required>
+      </fieldset>
+      <button>Get Postage</button>
+    </form>
   </body>
 </html>

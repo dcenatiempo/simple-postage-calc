@@ -25,3 +25,13 @@ form fieldset {
 form legend {
   font-size: 1.3em;
 }
+div.error {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1em;
+  background: pink;
+  color: red;
+  text-align: center;
+}

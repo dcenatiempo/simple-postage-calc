@@ -45,6 +45,12 @@ let rateTable = {
     base: 1,
     surcharge: .21,
     max: 13
+  },
+  package: {
+    full: 'First-Class Package Service-Retail',
+    base: 1.3,
+    surcharge: .35,
+    max: 13
   }
 }
 
@@ -66,7 +72,10 @@ function getRate(type, weight) {
 function calculateRate(type, weight) {
   let rate = 0;
   if (type === 'package') {
-  
+    if (weight <= 0) rate = 0;
+    else if (weight < 4) rate = 3.5;
+    else if (weight < 8) rate = 3.75;
+    else rate = getRate(rateTable[type], weight);
   }
   else if (type in rateTable) {
     rate = getRate(rateTable[type], weight);

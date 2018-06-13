@@ -6,10 +6,7 @@ router.get('/', (req, res, next) => {
   let error = null;
   if (req.query.error) {
     error = req.query.error;
-    if (error == 'weight') {
-      error = 'Weight is out of bounds!'
-    }
-    else error = 'Error';
+    error = error == 'weight' ? 'Weight is out of bounds!' : 'Invalid Input';
   }
   res.render('index', { title: 'Postage Calculator', error: error });
 });

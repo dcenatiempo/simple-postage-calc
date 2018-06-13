@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-// const url = require('url');
+const rateTable = require('../util/rateTable');
+const {roundWeight, calculateRate} = require('../util/calculateRate');
 
 /* GET postage */
 router.get('/', (req, res, next) => {
@@ -26,68 +27,5 @@ router.get('/', (req, res, next) => {
     })});
   }
 });
-
-let rateTable = {
-  stamped: {
-    full: 'Letters (Stamped)',
-    base: .5,
-    surcharge: .21,
-    max: 3.5
-  },
-  metered: {
-    full: 'Letters (Metered)',
-    base: .47,
-    surcharge: .21,
-    max: 3.5
-  },
-  flats: {
-    full: 'Large Envelopes (Flats)',
-    base: 1,
-    surcharge: .21,
-    max: 13
-  },
-  package: {
-    full: 'First-Class Package Service-Retail',
-    base: 1.3,
-    surcharge: .35,
-    max: 13
-  }
-}
-
-function getRate(type, weight) {
-  let rate = 0;
-  let base = type.base;
-  let surcharge = type.surcharge;
-  let max = type.max;
-  if (weight >= max || weight <= 0) {
-    rate = 0;
-  }
-  else {
-    rate = (base + ((Math.ceil(weight+.1)-1) * surcharge));
-    rate = roundRate(rate);
-  }
-  return rate;
-}
-
-function calculateRate(type, weight) {
-  let rate = 0;
-  if (type === 'package') {
-    if (weight <= 0) rate = 0;
-    else if (weight < 4) rate = 3.5;
-    else if (weight < 8) rate = 3.75;
-    else rate = getRate(rateTable[type], weight);
-  }
-  else if (type in rateTable) {
-    rate = getRate(rateTable[type], weight);
-  }
-  return rate;
-}
-
-function roundRate (num) {
-  return Math.round(num*100)/100;
-}
-function roundWeight (num) {
-  return Math.round(num*10)/10;
-}
 
 module.exports = router;
